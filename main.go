@@ -317,9 +317,9 @@ func yuanshen() {
 	go func() {
 		f := true
 		for {
-			time.Sleep(time.Hour)
 			controllers.AutoLogin(f)
 			f = !f
+			time.Sleep(time.Hour)
 		}
 	}()
 }
