@@ -43,6 +43,7 @@ func Router() *gin.Engine {
 	{
 		user.POST("/login", controllers.UserController{}.PostLogin)
 		user.GET("/online", controllers.UserController{}.GetOnline)
+		user.POST("/pwd", controllers.UserController{}.PostPwd)
 	}
 	problem := r.Group("/problem")
 	{

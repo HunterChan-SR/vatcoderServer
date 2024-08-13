@@ -123,6 +123,33 @@ func vjudgeApi(targetURL string, method string, data map[string][]string) []byte
 	return all
 }
 
+func AutoLogin(f bool) {
+	if f {
+		data := map[string][]string{
+			//"username": username,
+			//"password": password,
+			//"captcha":  "",
+			"username": {"team_014"},
+			"password": {"chen74110"},
+			"captcha":  {""},
+		}
+		vjudgeApi(apiURL+"/user/login", "POST", data)
+	} else {
+		data := map[string][]string{
+			//"username": username,
+			//"password": password,
+			//"captcha":  "",
+			"username": {"admin013"},
+			"password": {"chen74110"},
+			"captcha":  {""},
+		}
+		vjudgeApi(apiURL+"/user/login", "POST", data)
+	}
+	log.Println("JSESSIONID:", jSESSIONID)
+	log.Println("JSESSlONID:", jSESSlONID)
+	log.Println("Jax.Q:", jax_Q)
+}
+
 func VerifyVjudgeOnline() bool {
 	res := string(vjudgeApi(apiURL+"/user/checkLogInStatus", "POST", nil))
 	if strings.Contains(res, "true") || strings.Contains(res, "success") {

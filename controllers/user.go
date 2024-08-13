@@ -81,3 +81,38 @@ func (u UserController) GetOnline(c *gin.Context) {
 		ReturnSuccess(c, OK, "success", user, 1)
 	}
 }
+
+//type User struct {
+//	Id       int    `json:"id"`
+//	Username string `json:"username"`
+//	Password string `json:"password"`
+//	Truename string `json:"truename"`
+//	Level    int    `json:"level"`
+//}
+
+type NewPwd struct {
+	NewPwd string `json:"newpwd"`
+	OldPwd string `json:"oldpwd"`
+}
+
+func (u UserController) PostPwd(c *gin.Context) {
+	id := CheckAuthId(c)
+	if id == 0 {
+		ReturnError(c, ERROR, "用户未登录")
+		return
+	}
+	var newpwd NewPwd
+	_ = c.Bind(&newpwd)
+	if len(newpwd.NewPwd) == 0 || len(newpwd.OldPwd) == 0 || newpwd.NewPwd == newpwd.OldPwd {
+		ReturnError(c, ERROR, "密码错误")
+		return
+	}
+	var user db.User
+	if db.DB.Where("id = ?", id).Where("password = ?", newpwd.OldPwd).First(&user).RowsAffected == 0 {
+		ReturnError(c, ERROR, "旧密码错误")
+		return
+	}
+	user.Password = newpwd.NewPwd
+	db.DB.Model(&user).Update("password", newpwd.NewPwd)
+	ReturnSuccess(c, OK, "success", "", 1)
+}
