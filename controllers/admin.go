@@ -19,8 +19,8 @@ func (ac AdminController) ReLoad(c *gin.Context) {
 		//"username": username,
 		//"password": password,
 		//"captcha":  "",
-		"username": {"team_014"},
-		"password": {"myrbwgdwa"},
+		"username": {"admin014"},
+		"password": {"baogongtou"},
 		"captcha":  {""},
 	}
 	bytes := vjudgeApi(apiURL+"/user/login", "POST", data)

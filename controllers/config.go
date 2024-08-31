@@ -29,7 +29,7 @@ const password = "myrbwgdwa"
 
 var jSESSIONID = "DDD8D0D79F51EA9AEEAC00BAC3AE8ECA"
 var jSESSlONID = "3OF0CRL65CCNUAGTFK2QE54MM0JJDD4T"
-var jax_Q = "team_014|59XMAXJ7CRIP8QCJE6YXL51XEY8KT6"
+var jax_Q = ""
 
 type JsonStruct struct {
 	Code  int         `json:"code"`
@@ -129,8 +129,8 @@ func AutoLogin(f bool) {
 			//"username": username,
 			//"password": password,
 			//"captcha":  "",
-			"username": {"team_014"},
-			"password": {"chen74110"},
+			"username": {"admin014"},
+			"password": {"baogongtou"},
 			"captcha":  {""},
 		}
 		vjudgeApi(apiURL+"/user/login", "POST", data)
@@ -140,7 +140,7 @@ func AutoLogin(f bool) {
 			//"password": password,
 			//"captcha":  "",
 			"username": {"admin013"},
-			"password": {"chen74110"},
+			"password": {"baogongtou"},
 			"captcha":  {""},
 		}
 		vjudgeApi(apiURL+"/user/login", "POST", data)
