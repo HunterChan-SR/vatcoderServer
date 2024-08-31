@@ -328,7 +328,8 @@ func yuanshen() {
 func main() {
 	//insertProblems()
 	//insertUsers()
-	yuanshen()
+	//yuanshen()
+	startRouter()
 	//log.Println("Error exit")
 	//select {}
 

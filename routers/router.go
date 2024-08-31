@@ -21,34 +21,37 @@ func CorsMiddleware() gin.HandlerFunc {
 }
 
 func Router() *gin.Engine {
-	r := gin.Default()
-	r.Use(CorsMiddleware())
+	root := gin.Default()
+	root.Use(CorsMiddleware())
 
-	admin := r.Group("/admin")
+	r := root.Group("/api")
 	{
-		admin.POST("/reload", controllers.AdminController{}.ReLoad)
-		admin.GET("/levels", controllers.AdminController{}.GetLevels)
-		admin.GET("/account/:level", controllers.AdminController{}.GetAccount)
-		admin.POST("/addproblem", controllers.AdminController{}.AddProblem)
-		admin.POST("/adduser", controllers.AdminController{}.AddUser)
+		admin := r.Group("/admin")
+		{
+			admin.POST("/reload", controllers.AdminController{}.ReLoad)
+			admin.GET("/levels", controllers.AdminController{}.GetLevels)
+			admin.GET("/account/:level", controllers.AdminController{}.GetAccount)
+			admin.POST("/addproblem", controllers.AdminController{}.AddProblem)
+			admin.POST("/adduser", controllers.AdminController{}.AddUser)
+		}
+
+		submit := r.Group("/submit")
+		{
+			submit.POST("/", controllers.SubmitController{}.Submit)
+			submit.GET("/data/:id", controllers.SubmitController{}.Data)
+		}
+
+		user := r.Group("/user")
+		{
+			user.POST("/login", controllers.UserController{}.PostLogin)
+			user.GET("/online", controllers.UserController{}.GetOnline)
+			user.POST("/pwd", controllers.UserController{}.PostPwd)
+		}
+		problem := r.Group("/problem")
+		{
+			problem.GET("/", controllers.ProblemController{}.Get)
+		}
 	}
 
-	submit := r.Group("/submit")
-	{
-		submit.POST("/", controllers.SubmitController{}.Submit)
-		submit.GET("/data/:id", controllers.SubmitController{}.Data)
-	}
-
-	user := r.Group("/user")
-	{
-		user.POST("/login", controllers.UserController{}.PostLogin)
-		user.GET("/online", controllers.UserController{}.GetOnline)
-		user.POST("/pwd", controllers.UserController{}.PostPwd)
-	}
-	problem := r.Group("/problem")
-	{
-		problem.GET("/", controllers.ProblemController{}.Get)
-	}
-
-	return r
+	return root
 }
