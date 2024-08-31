@@ -291,7 +291,7 @@ func insertUsers() {
 
 func startRouter() {
 	fmt.Println("Starting router...")
-	err := routers.Router().Run(":80")
+	err := routers.Router().Run(":3000")
 	if err != nil {
 		log.Fatalf("Failed to start router: %v", err)
 	}
@@ -303,8 +303,8 @@ func startProxy() {
 	}
 	proxyHandler := controllers.ReverseProxyHandler(targetURL)
 	http.HandleFunc("/", proxyHandler)
-	log.Println("Starting reverse proxy server on :90")
-	err = http.ListenAndServe(":90", nil)
+	log.Println("Starting reverse proxy server")
+	err = http.ListenAndServe(":3090", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -317,6 +317,7 @@ func yuanshen() {
 	go func() {
 		f := true
 		for {
+			log.Println("Auto Login...........................")
 			controllers.AutoLogin(f)
 			f = !f
 			time.Sleep(time.Hour)
@@ -328,7 +329,29 @@ func main() {
 	//insertProblems()
 	//insertUsers()
 	yuanshen()
-	log.Println("Error exit")
-	select {}
+	//log.Println("Error exit")
+	//select {}
+
+	//for i := 220; i <= 365; i++ {
+	//	for c := 'g'; c <= 'g'; c++ {
+	//		data := db.Problem{
+	//			//abc365_d
+	//			Atcoderid: "abc" + fmt.Sprintf("%03d", i) + "_" + string(c),
+	//			Level:     1,
+	//		}
+	//		db.DB.Create(&data)
+	//	}
+	//}
+	//
+	//for i := 220; i <= 365; i++ {
+	//	for c := 'g'; c <= 'g'; c++ {
+	//		data := db.Problem{
+	//			//abc365_d
+	//			Atcoderid: "abc" + fmt.Sprintf("%03d", i) + "_" + string(c),
+	//			Level:     2,
+	//		}
+	//		db.DB.Create(&data)
+	//	}
+	//}
 
 }
