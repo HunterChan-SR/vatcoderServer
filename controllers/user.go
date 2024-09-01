@@ -70,6 +70,7 @@ func (u UserController) PostLogin(c *gin.Context) {
 func (u UserController) GetOnline(c *gin.Context) {
 	id := CheckAuthId(c)
 	if id == 0 {
+		log.Println(c.GetHeader("Authorization"))
 		ReturnError(c, ERROR, "用户未登录")
 		return
 	} else {
